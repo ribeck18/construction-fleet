@@ -1,0 +1,82 @@
+.env
+.venv 
+
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === Virtual Environments ===
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# === Environment Variables / Secrets ===
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+config.local.py
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === Testing / Coverage ===
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# === Type Checkers / Linters ===
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# === Databases ===
+*.db
+*.sqlite
+*.sqlite3
+
+# === Logs ===
+*.log
+logs/
+
+# === Jupyter ===
+.ipynb_checkpoints/
+
+# === Operating System ===
+.DS_Store
+Thumbs.db
+desktop.ini

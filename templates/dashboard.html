@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<section id="header">
+	<h1>Good Morning, {{ user }}.</h1>
+	<p><strong>Here's what's up with the fleet today.</strong></p>
+
+	<div>
+		<!-- this will have the date box. -->
+	</div>
+</section>
+<section id="counter-boxes">
+	<div class="counter-box">
+		<img src="#" alt="Construction equipment icon">
+		<h3>1</h3>	
+		<p><small>Total Vehicles</small></p>
+	</div>	
+	<div class="counter-boxes">
+		<img src="#" alt="Checkmark icon">
+		<h3>10</h3>
+		<p><small>In Service</small></p>
+		<p><small>% of fleet</small></p>
+	</div>
+	<div class="counter-boxes">
+		<img src="#" alt="Wrench icon">
+		<h3>7</h3>
+		<p><small>Out of service</small></p>
+		<p><small>% of fleet</small></p>
+	</div>
+	<div class="counte-boxes">
+		<img src="#" alt="Red Exclamation icon">
+		<h3>6</h3>
+		<p><small>Needs Attention</small></p>
+		<p><small>See details below</small></p>
+	</div>
+</section>
+
+<section id="data-boxes">
+	<div class="data-box">
+		<h4>Fleet Status</h4>	
+		<!-- this will need a pie chart of fleet status. -->
+		<a href="#">View full report</a>
+	</div>	
+
+	<div class="data-box">
+		<h4>Work Orders Overview</h4>
+
+		<div class="workorder-overview">
+			<h5>10</h5>
+			<p>New</p>
+		</div>
+		<div class="workorder-overview">
+			<h5>10</h5>
+			<p>In Progress</p>
+		</div>
+		<div class="workorder-overview">
+			<h5>10</h5>
+			<p>Completed</p>
+		</div>
+	</div>
+
+	<div class="data-box">
+		<h4>Work Orders Needing Attention</h4>	
+		<!-- this will need a for loop of all workorders needing attention. -->
+		<img src="#" alt="Path to workorder image">
+		<h6>Workorder ID</h6>
+		<p><small>Vehicle assigned to</small></p>
+		<h6>Workorder Name</h6>
+		<div class="workorder-status-icon">
+			<p>Currrent Status</p>
+		</div>
+		<p>Hours ago created</p>
+	</div>
+		
+	<div class="data-box">
+		<h4>Equipment Needing Attention</h4>	
+		<!-- this will need a for loop of all workorders needing attention. -->
+		<img src="#" alt="Path to vehicle image">
+		<h6>Equipment ID</h6>
+		<p><small>Vehicle assigned to</small></p>
+		<h6>Equipment Name</h6>
+		<div class="workorder-status-icon">
+			<p>Currrent Status</p>
+		</div>
+		<p>Hours ago created</p>
+	</div>
+</section>
+
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{
+  "include": ["."],
+  "venvPath": ".",
+  "venv": ".venv",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": ["."]
+    }
+  ],
+	"reportImportCycles": "none",
+	"reportUnannotatedClassAttribute": "none",
+	"reportIncompatibleVariableOverride": "none"
+}

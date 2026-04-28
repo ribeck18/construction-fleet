@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- hero -->
+<section id="hero">
+	<h5>Operations Dashboard</h5>
+	<h1>Keep The Fleet Moving</h1>
+	<p>Reivew fleet needs and keep equipment in top condition</p>
+
+	<div class="hero-buttons">
+		<button type="" class="hero-button">Equipment</button>
+		<button type="" class="hero-button">Work Orders</button>
+	</div>
+
+	<p>Welcome</p>
+</section>
+
+<!-- counter blocks -->
+
+<section id="counter-blocks">
+	<div class="counter-block">
+		<h5>Equipment Items</h5>
+		<!-- this should count the total equip -->
+		<h1>1</h1>
+	</div>	
+	<div class="counter-block">
+		<h5>Work Orders</h5>
+		<h1>1</h1>
+	</div>
+	<div class="counter-block">
+		<h5>Severe Issues</h5>
+		<h1>1</h1>
+	</div>
+	<div class="counter-block">
+		<h5>Maintenance Due</h5>
+		<h1>1</h1>
+	</div>
+</section>
+
+<!-- quick view of needed work -->
+<!-- this will be blocks of needed work orders. Each should be it's own box. Use a for block to place all of them. -->
+
+<section>
+
+	<h1>All Vehicles</h1>
+	<ul>
+	{% for vehicle in vehicles %}	
+	<li>
+		{{ vehicle.name }}: {{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}
+	</li>
+	{% endfor %}
+	</ul>
+</section>
+<section>
+	<h1>All Workorders</h1>
+	<ul>
+		{% for workorder in workorders %}
+		<li>
+			{{ workorder.name }}: {{ workorder.vehicle_id }}
+		</li>
+		{% endfor %}
+	</ul>
+</section>
+
+{% endblock %}
