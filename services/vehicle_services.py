@@ -1,6 +1,4 @@
-from webbrowser import get
 from models.Vehicle import Vehicle
-from models.Database import engine
 from models.enums import StatusEnum
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
@@ -10,28 +8,23 @@ from pydantic_schemas.VehicleSchema import ReadVehicle
 
 def create_vehicle(
     session: Session, name: str, make: str, model: str, year: int, vin: str
-) -> ReadVehicle:
+) -> Vehicle:
     vehicle: Vehicle = Vehicle(name=name, make=make, model=model, year=year, vin=vin)
     session.add(vehicle)
-    session.commit()
-    print("New vehicle created.")
+    session.flush()
 
-    read_vehicle: ReadVehicle = convert_to_read_vehicle(vehicle)
-
-    return read_vehicle
+    return vehicle
 
 
-def get_vehicles() -> list[Vehicle]:
-    with Session(engine) as s:
-        stmt = select(Vehicle)
-        vehicles = list(s.execute(stmt).scalars().all())
+def get_vehicles(session: Session) -> list[Vehicle]:
+    stmt = select(Vehicle)
+    vehicles = list(session.execute(stmt).scalars().all())
     return vehicles
 
 
-def get_vehicle(id: int) -> Vehicle | None:
-    with Session(engine) as s:
-        stmt = select(Vehicle).where(Vehicle.primary_key == id)
-        vehicle = s.execute(stmt).scalars().first()
+def get_vehicle(session: Session, id: int) -> Vehicle | None:
+    stmt = select(Vehicle).where(Vehicle.primary_key == id)
+    vehicle = session.execute(stmt).scalars().first()
 
     return vehicle
 
@@ -65,21 +58,20 @@ def check_vehicle_exists(session: Session, id: int) -> bool:
         return True
 
 
-def get_counts_dict() -> dict[str, int]:
-    with Session(engine) as session:
-        down = get_specific_count(session, StatusEnum.Status.DOWN)
-        in_shop = get_specific_count(session, StatusEnum.Status.IN_SHOP)
-        needs_attention = get_specific_count(session, StatusEnum.Status.NEEDS_ATTENTION)
-        active = get_specific_count(session, StatusEnum.Status.ACTIVE)
-        vehicles = get_count(session)
+def get_counts_dict(session: Session) -> dict[str, int]:
+    down = get_specific_count(session, StatusEnum.Status.DOWN)
+    in_shop = get_specific_count(session, StatusEnum.Status.IN_SHOP)
+    needs_attention = get_specific_count(session, StatusEnum.Status.NEEDS_ATTENTION)
+    active = get_specific_count(session, StatusEnum.Status.ACTIVE)
+    vehicles = get_count(session)
 
-        counts_dict = {
-            "down": down,
-            "in_shop": in_shop,
-            "needs_attention": needs_attention,
-            "active": active,
-            "vehicles": vehicles,
-        }
+    counts_dict = {
+        "down": down,
+        "in_shop": in_shop,
+        "needs_attention": needs_attention,
+        "active": active,
+        "vehicles": vehicles,
+    }
 
     return counts_dict
 
