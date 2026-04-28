@@ -15,24 +15,24 @@
 <section id="counter-boxes">
 	<div class="counter-box">
 		<img src="#" alt="Construction equipment icon">
-		<h3>{{ counts.vehicles }}</h3>	
+		<h3>{{ vehicle_counts.vehicles }}</h3>	
 		<p><small>Total Vehicles</small></p>
 	</div>	
 	<div class="counter-box">
 		<img src="#" alt="Checkmark icon">
-		<h3>{{ counts.active }}</h3>
+		<h3>{{ vehicle_counts.active }}</h3>
 		<p><small>In Service</small></p>
-		<p><small>{{ counts.active/counts.vehicles*100 }}% of fleet</small></p>
+		<p><small>{{ vehicle_counts.active/vehicle_counts.vehicles*100 }}% of fleet</small></p>
 	</div>
 	<div class="counter-box">
 		<img src="#" alt="Wrench icon">
-		<h3>{{ counts.down + counts.in_shop}}</h3>
+		<h3>{{ vehicle_counts.down + vehicle_counts.in_shop}}</h3>
 		<p><small>Out of service</small></p>
-		<p><small>{{ (counts.down + counts.in_shop) / counts.vehicles }}% of fleet</small></p>
+		<p><small>{{ (vehicle_counts.down + vehicle_counts.in_shop) / vehicle_counts.vehicles }}% of fleet</small></p>
 	</div>
 	<div class="counter-box">
 		<img src="#" alt="Red Exclamation icon">
-		<h3>{{ counts.needs_attention }}</h3>
+		<h3>{{ vehicle_counts.needs_attention }}</h3>
 		<p><small>Needs Attention</small></p>
 		<p><small>See details below</small></p>
 	</div>
