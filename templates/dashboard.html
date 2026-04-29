@@ -65,14 +65,20 @@
 	<div class="data-box">
 		<h4>Work Orders Needing Attention</h4>	
 		<!-- this will need a for loop of all workorders needing attention. -->
-		<img src="#" alt="Path to workorder image">
-		<h6>Workorder ID</h6>
-		<p><small>Vehicle assigned to</small></p>
-		<h6>Workorder Name</h6>
-		<div class="workorder-status-icon">
-			<p>Currrent Status</p>
+		{% for workorder in workorders %}
+		<div class="attention-item">
+			<img class="attention-img" src="#" alt="Path to workorder image">
+			<h6 class="attention-id">WO-{{ workorder.primary_key }}</h6>
+			<!-- I would like to make this show the actual vehicle not just the id. -->
+			<p class="attention-subid"><small>{{ workorder.vehicle_id }}</small></p>
+			<h6 class="attention-name">{{ workorder.name }}</h6>
+			<div class="attention-status-icon">
+				<p>{{ workorder.severity }}</p>
+			</div>
+			<p class="attention-time">Hours ago created.</p>
 		</div>
-		<p>Hours ago created</p>
+		{% endfor %}
+		</ul>
 	</div>
 		
 	<div class="data-box">
