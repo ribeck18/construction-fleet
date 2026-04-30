@@ -29,8 +29,8 @@ class InspectionItem(Base):
     __tablename__ = "inspection_items"
 
     primary_key: Mapped[int] = mapped_column(primary_key=True)
-    is_passed: Mapped[bool] = mapped_column(Boolean, nullable=True)
-    description: Mapped[str] = mapped_column(String, nullable=True)
+    is_passed: Mapped[bool] | None = mapped_column(Boolean, nullable=True)
+    description: Mapped[str] | None = mapped_column(String, nullable=True)
 
     question_id: Mapped[int] = mapped_column(
         ForeignKey("inspection_questions.primary_key")
@@ -50,8 +50,8 @@ class Inspection(Base):
     vehicle_id: Mapped[int] = mapped_column(ForeignKey("vehicles.primary_key"))
 
     vehicle: Mapped["Vehicle"] = relationship(back_populates="inspections")
-    inspection_items: Mapped["InspectionItem"] = relationship(
-        back_populates="inspection"
+    inspection_items: Mapped[list["InspectionItem"]] = relationship(
+        back_populates="inspection", cascade="all, delete-orphan"
     )
 
     workorder_id: Mapped[int] = mapped_column(ForeignKey("workorders.primary_key"))

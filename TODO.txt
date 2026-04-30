@@ -1,6 +1,6 @@
 TODO
 
-Refactor inspections so that the questions are a different table.
+refactor inspection routes and services so that they reflect the new models.
 
 get workorder counts
 
