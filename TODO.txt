@@ -1,4 +1,7 @@
 TODO
+
+Refactor inspections so that the questions are a different table.
+
 get workorder counts
 
 get workorders with a specific severity

@@ -16,25 +16,23 @@ def create_workorder(
     vehicle_id: int,
     resolved_date: datetime | None = None,
     due_date: date | None = None,
-) -> WorkOrder | None:
+) -> WorkOrder:
     vehicle_exists = check_vehicle_exists(session=session, id=vehicle_id)
-    if vehicle_exists:
-        workorder = WorkOrder(
-            name=name,
-            severity=severity,
-            description=description,
-            photo_path=photo_path,
-            vehicle_id=vehicle_id,
-            resolved_date=resolved_date,
-            due_date=due_date,
-        )
-        session.add(workorder)
-        session.flush()
+    if vehicle_exists is False:
+        raise ValueError(f"Vehicle with id {vehicle_id} does not exist.")
+    workorder = WorkOrder(
+        name=name,
+        severity=severity,
+        description=description,
+        photo_path=photo_path,
+        vehicle_id=vehicle_id,
+        resolved_date=resolved_date,
+        due_date=due_date,
+    )
+    session.add(workorder)
+    session.flush()
 
-        return workorder
-
-    else:
-        return None
+    return workorder
 
 
 def get_workorder(session: Session, id: int) -> WorkOrder | None:

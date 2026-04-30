@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from models.Inspection import Inspection
 from .Database import Base
 from .enums.SeverityEnum import SeverityEnum
