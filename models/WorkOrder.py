@@ -26,5 +26,3 @@ class WorkOrder(Base):
 
     vehicle_id: Mapped[int] = mapped_column(ForeignKey("vehicles.primary_key"))
     vehicle: Mapped["Vehicle"] = relationship(back_populates="workorders")
-
-    inspection: Mapped["Inspection"] = relationship(back_populates="workorder")

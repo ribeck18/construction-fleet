@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, ForeignKey, Integer, String, DateTime
 from sqlalchemy import Enum as SQEnum
 from .enums.QuestionTypesEnum import QuestionTypesEnum
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -29,8 +30,8 @@ class InspectionItem(Base):
     __tablename__ = "inspection_items"
 
     primary_key: Mapped[int] = mapped_column(primary_key=True)
-    is_passed: Mapped[bool] | None = mapped_column(Boolean, nullable=True)
-    description: Mapped[str] | None = mapped_column(String, nullable=True)
+    is_passed: Mapped[bool] = mapped_column(Boolean, nullable=True)
+    description: Mapped[str] = mapped_column(String, nullable=True)
 
     question_id: Mapped[int] = mapped_column(
         ForeignKey("inspection_questions.primary_key")
@@ -48,14 +49,12 @@ class Inspection(Base):
 
     primary_key: Mapped[int] = mapped_column(primary_key=True)
     vehicle_id: Mapped[int] = mapped_column(ForeignKey("vehicles.primary_key"))
+    date_created: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     vehicle: Mapped["Vehicle"] = relationship(back_populates="inspections")
     inspection_items: Mapped[list["InspectionItem"]] = relationship(
         back_populates="inspection", cascade="all, delete-orphan"
     )
-
-    workorder_id: Mapped[int] = mapped_column(ForeignKey("workorders.primary_key"))
-    workorder: Mapped["WorkOrder"] = relationship(back_populates="inspection")
 
 
 # This is old the inspection class for reference:
