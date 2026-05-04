@@ -33,3 +33,6 @@ async def get_home_page(request: Request):
             "workorder_counts": workorders_counts_dict,
         },
     )
+
+
+route.get("/fleet", response_class=HTMLResponse)
