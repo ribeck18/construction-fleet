@@ -35,3 +35,8 @@ def new_inspection(
 @route.post("/create-question")
 def new_question():
     pass
+
+
+@route.post("/create-inspection-item")
+def new_inspection_item():
+    pass
