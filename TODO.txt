@@ -1,10 +1,8 @@
 TODO
 
-count the workorders and equipment - display on dash
-count vheicles in service
-count vehicles out of service
-sount vehicles needing attention
-^ these should all be seperate sql queires in the same session. Avoid for loops.
+refactor inspection routes and services so that they reflect the new models.
+
+get workorder counts
 
 get workorders with a specific severity
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from models.Inspection import Inspection
+
 from .Database import Base
 from .enums.StatusEnum import Status
 from typing import TYPE_CHECKING
@@ -23,5 +25,8 @@ class Vehicle(Base):
     status: Mapped[Status] = mapped_column(SQEnum(Status), default=Status.ACTIVE)
 
     workorders: Mapped[list["WorkOrder"]] = relationship(
+        back_populates="vehicle", cascade="all, delete-orphan"
+    )
+    inspections: Mapped[list["Inspection"]] = relationship(
         back_populates="vehicle", cascade="all, delete-orphan"
     )

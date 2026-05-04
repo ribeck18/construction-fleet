@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from models.WorkOrder import WorkOrder
 from models.enums.SeverityEnum import SeverityEnum
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 from pydantic_schemas.WorkorderSchema import ReadWorkorder
 from .vehicle_services import check_vehicle_exists
@@ -16,25 +16,23 @@ def create_workorder(
     vehicle_id: int,
     resolved_date: datetime | None = None,
     due_date: date | None = None,
-) -> WorkOrder | None:
+) -> WorkOrder:
     vehicle_exists = check_vehicle_exists(session=session, id=vehicle_id)
-    if vehicle_exists:
-        workorder = WorkOrder(
-            name=name,
-            severity=severity,
-            description=description,
-            photo_path=photo_path,
-            vehicle_id=vehicle_id,
-            resolved_date=resolved_date,
-            due_date=due_date,
-        )
-        session.add(workorder)
-        session.flush()
+    if vehicle_exists is False:
+        raise ValueError(f"Vehicle with id {vehicle_id} does not exist.")
+    workorder = WorkOrder(
+        name=name,
+        severity=severity,
+        description=description,
+        photo_path=photo_path,
+        vehicle_id=vehicle_id,
+        resolved_date=resolved_date,
+        due_date=due_date,
+    )
+    session.add(workorder)
+    session.flush()
 
-        return workorder
-
-    else:
-        return None
+    return workorder
 
 
 def get_workorder(session: Session, id: int) -> WorkOrder | None:
@@ -62,3 +60,44 @@ def convert_to_readworkorder_list(workorders: list[WorkOrder]) -> list[ReadWorko
         readworkorders.append(read_workorder)
 
     return readworkorders
+
+
+def get_counts_dict(session: Session) -> dict[str, int]:
+    workorders = get_count(session)
+    extreme = get_specific_count(session, SeverityEnum.EXTREME)
+    high = get_specific_count(session, SeverityEnum.HIGH)
+    medium = get_specific_count(session, SeverityEnum.MEDIUM)
+    mild = get_specific_count(session, SeverityEnum.MILD)
+
+    counts_dict = {
+        "workorders": workorders,
+        "extreme": extreme,
+        "high": high,
+        "medium": medium,
+        "mild": mild,
+    }
+    return counts_dict
+
+
+def get_count(session: Session) -> int:
+    stmt = select(func.count()).select_from(WorkOrder)
+
+    count = session.execute(stmt).scalar()
+    if count is None:
+        count = 0
+
+    return count
+
+
+def get_specific_count(session: Session, severity: SeverityEnum) -> int:
+    stmt = (
+        select(func.count())
+        .select_from(WorkOrder)
+        .where(WorkOrder.severity == severity)
+    )
+
+    count = session.execute(stmt).scalar()
+    if count is None:
+        count = 0
+
+    return count

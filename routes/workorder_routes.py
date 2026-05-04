@@ -36,14 +36,8 @@ async def new_workorder(
             resolved_date,
             due_date,
         )
-        if workorder is None:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Vehicle with id {vehicle_id} could not be found.",
-            )
-        else:
-            read_workorder = convert_to_readworkorder(workorder)
-            session.commit()
+        read_workorder = convert_to_readworkorder(workorder)
+        session.commit()
 
     return read_workorder
 
